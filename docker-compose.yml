@@ -1,0 +1,18 @@
+version: '2'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    container_name: ng02
+    command: [nginx-debug, '-g', 'daemon off;']
+    environment:
+      UPSTREAM: 127.0.0.1
+      SERVERNAME: localhost
+      EXTRANAMES: www.test.example.com,test2.example.com
+    ports:
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - ./var/log:/var/log
+      - ./etc/nginx:/etc/nginx
